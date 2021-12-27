@@ -1,0 +1,27 @@
+name: test
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+     
+     
+    steps:
+      - name: Checkout
+          uses: actions/checkout@v2
+          
+      - name: ngrok
+        run: |
+          wget ttps://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz
+          unzip ngrok-stable-linux-amd64.zip
+          cd ngrok-stable-linux-amd64
+      - name : run ngrok
+        env:
+           TOKEN_NGROK: ${{ secrets.NGROK }}
+        run: |
+        
+          ./ngrok authtoken $TOKEN_NGROK
+          
+      - name : run ngrok
+        run: |
+          ngrok tcp 22         
